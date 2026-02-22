@@ -25,70 +25,65 @@
     </style>
 </head>
 
-<body>
-    <section class="container w-11/12 mx-auto">
-        <h1 class="font-bold text-3xl text-[#002C5C] my-6">Job Application Tracker</h1>
-        <div class="dash-info-cards grid grid-cols-3 py-5 border-b-2 border-gray-200">
-            <div class="dash-card card card-border bg-base-100 w-96">
-                <div class="card-body">
+<body class="bg-base-200">
+    <section class="container h-full w-11/12 mx-auto">
+        <h1 class="font-bold text-3xl text-[#002C5C] py-6">Job Application Tracker</h1>
+        <div class="dash-info-cards grid grid-cols-1 lg:grid-cols-3 py-5 border-b-2 border-gray-200 gap-5">
+            <div class="dash-card card card-border bg-base-100 w-full">
+                <div class="card-body max-sm:flex max-sm:justify-between max-sm:items-center">
                     <h2 class="card-title">Total</h2>
-                    <p id="total-count" class="text-[#002C5C] font-bold text-2xl">0</p>
-                    <div class="card-actions justify-end">
-                    </div>
+                    <p id="total-count" class="text-[#002C5C] font-bold text-2xl max-sm:block">8</p>
                 </div>
             </div>
-            <div class="dash-card card card-border bg-base-100 w-96">
-                <div class="card-body">
+            <div class="dash-card card card-border bg-base-100 w-full">
+                <div class="card-body max-sm:flex max-sm:justify-between max-sm:items-center">
                     <h2 class="card-title">Interview</h2>
-                    <p id="interview-count" class="text-[#10B981] font-bold text-2xl">0</p>
-                    <div class="card-actions justify-end">
-                    </div>
+                    <p id="interview-count" class="text-[#10B981] font-bold text-2xl max-sm:block">0</p>
                 </div>
             </div>
-            <div class="dash-card card card-border bg-base-100 w-96">
-                <div class="card-body">
+            <div class="dash-card card card-border bg-base-100 w-full">
+                <div class="card-body max-sm:flex max-sm:justify-between max-sm:items-center">
                     <h2 class="card-title">Rejected</h2>
-                    <p id="reject-count" class="text-[#EF4444] font-bold text-2xl">0</p>
-                    <div class="card-actions justify-end">
-                    </div>
+                    <p id="reject-count" class="text-[#EF4444] font-bold text-2xl max-sm:block">0</p>
                 </div>
             </div>
         </div>
 
-        <div class="available-jobs py-10 space-y-5">
+        <div id="available-jobs-area" class="available-jobs pt-10 space-y-5">
             <div class="job-head flex justify-between flex-wrap">
-                <h2 class="font-bold text-2xl text-[#002C5C]">Available Jobs</h2>
-                <span id="job-count-span" class="inline-block"><span id="job-count">0</span> of <span
-                        id="total-jobs">0</span> Jobs</span>
+                <h2 id="areaTitle" class="font-bold text-2xl text-[#002C5C]">Available Jobs</h2>
+                <span id="job-count-span" class="inline-block"><span id="job-count">8</span> of <span
+                        id="total-jobs">8</span> Jobs</span>
             </div>
             <div class="toggle-items flex gap-2">
-                <div class="btn px-10 rounded-lg bg-[#3B82F6] text-white border-none">All</div>
-                <div class="btn px-10 rounded-lg bg-white text-black border-none">Interview</div>
-                <div class="btn px-10 rounded-lg bg-white text-black border-none">Rejected</div>
+                <div id="all" class="all btn px-10 rounded-lg bg-[#3B82F6] text-white border-none">All</div>
+                <div id="interview" class="interview btn px-10 rounded-lg bg-white text-black border-none">Interview
+                </div>
+                <div id="rejected" class="rejected btn px-10 rounded-lg bg-white text-black border-none">Rejected</div>
             </div>
 
-            <div class="available-jobs-cards grid grid-cols-1 gap-5">
+            <div id="available-jobs-cards" class="available-jobs-cards grid grid-cols-1 gap-5">
 
                 <!-- Card 0 -->
                 <div class="available-card card bg-base-100 card-lg shadow-md">
                     <div class="card-body">
-                        <h2 class="card-title text-[#002C5C]">Mobile First Corp</h2>
-                        <p class="text-gray-500">React Native Developer</p>
+                        <h2 class="card-title text-[#002C5C]">Skyline Digital Ltd.</h2>
+                        <p class="text-gray-500 position">Frontend Engineer</p>
                         <ul class="job-specs flex justify-start gap-10 my-6 text-gray-500 list-disc">
-                            <li class="list-none">Remote</li>
-                            <li>Full-time</li>
-                            <li>$130,000 - $175,000</li>
+                            <li class="list-none">Hybrid</li>
+                            <li>Contract</li>
+                            <li>$90,000 - $120,000</li>
                         </ul>
                         <div class="job-status">
                             <div id="job-status" class="btn  text-[#002C5C]">NOT APPLIED</div>
                         </div>
-                        <p>Build cross-platform mobile applications using React Native. Work on products used by
-                            millions of users worldwide.</p>
+                        <p>Develop responsive web interfaces and optimize performance for high-traffic platforms serving
+                            global users.</p>
                         <div class="job-qualify mt-5">
-                            <div class="btn text-[#10B981] border-[#10B981]">
+                            <div class="btn btn-interview text-[#10B981] border-[#10B981]">
                                 INTERVIEW
                             </div>
-                            <div class="btn text-[#EF4444] border-[#EF4444]">
+                            <div class="btn btn-rejected text-[#EF4444] border-[#EF4444]">
                                 REJECTED
                             </div>
                         </div>
@@ -111,8 +106,8 @@
                         <p>Build cross-platform mobile applications using React Native. Work on products used by
                             millions of users worldwide.</p>
                         <div class="job-qualify mt-5">
-                            <div class="btn text-[#10B981] border-[#10B981]">INTERVIEW</div>
-                            <div class="btn text-[#EF4444] border-[#EF4444]">REJECTED</div>
+                            <div class="btn btn-interview text-[#10B981] border-[#10B981]">INTERVIEW</div>
+                            <div class="btn btn-rejected text-[#EF4444] border-[#EF4444]">REJECTED</div>
                         </div>
                     </div>
                 </div>
@@ -133,8 +128,8 @@
                         <p>Design and scale distributed backend systems handling billions of daily requests for a
                             fast-growing SaaS platform.</p>
                         <div class="job-qualify mt-5">
-                            <div class="btn text-[#10B981] border-[#10B981]">INTERVIEW</div>
-                            <div class="btn text-[#EF4444] border-[#EF4444]">REJECTED</div>
+                            <div class="btn btn-interview text-[#10B981] border-[#10B981]">INTERVIEW</div>
+                            <div class="btn btn-rejected text-[#EF4444] border-[#EF4444]">REJECTED</div>
                         </div>
                     </div>
                 </div>
@@ -155,8 +150,8 @@
                         <p>Create stunning user experiences for web and mobile products. Collaborate closely with
                             product and engineering teams.</p>
                         <div class="job-qualify mt-5">
-                            <div class="btn text-[#10B981] border-[#10B981]">INTERVIEW</div>
-                            <div class="btn text-[#EF4444] border-[#EF4444]">REJECTED</div>
+                            <div class="btn btn-interview text-[#10B981] border-[#10B981]">INTERVIEW</div>
+                            <div class="btn btn-rejected text-[#EF4444] border-[#EF4444]">REJECTED</div>
                         </div>
                     </div>
                 </div>
@@ -177,8 +172,8 @@
                         <p>Develop and deploy machine learning models to solve complex business problems across finance
                             and healthcare verticals.</p>
                         <div class="job-qualify mt-5">
-                            <div class="btn text-[#10B981] border-[#10B981]">INTERVIEW</div>
-                            <div class="btn text-[#EF4444] border-[#EF4444]">REJECTED</div>
+                            <div class="btn btn-interview text-[#10B981] border-[#10B981]">INTERVIEW</div>
+                            <div class="btn btn-rejected text-[#EF4444] border-[#EF4444]">REJECTED</div>
                         </div>
                     </div>
                 </div>
@@ -199,8 +194,8 @@
                         <p>Manage CI/CD pipelines, Kubernetes clusters, and cloud infrastructure to ensure 99.99% uptime
                             for enterprise clients.</p>
                         <div class="job-qualify mt-5">
-                            <div class="btn text-[#10B981] border-[#10B981]">INTERVIEW</div>
-                            <div class="btn text-[#EF4444] border-[#EF4444]">REJECTED</div>
+                            <div class="btn btn-interview text-[#10B981] border-[#10B981]">INTERVIEW</div>
+                            <div class="btn btn-rejected text-[#EF4444] border-[#EF4444]">REJECTED</div>
                         </div>
                     </div>
                 </div>
@@ -221,8 +216,8 @@
                         <p>Build and maintain fintech products including payment gateways and investment dashboards
                             using Next.js and Node.js.</p>
                         <div class="job-qualify mt-5">
-                            <div class="btn text-[#10B981] border-[#10B981]">INTERVIEW</div>
-                            <div class="btn text-[#EF4444] border-[#EF4444]">REJECTED</div>
+                            <div class="btn btn-interview text-[#10B981] border-[#10B981]">INTERVIEW</div>
+                            <div class="btn btn-rejected text-[#EF4444] border-[#EF4444]">REJECTED</div>
                         </div>
                     </div>
                 </div>
@@ -243,16 +238,40 @@
                         <p>Protect critical infrastructure by identifying vulnerabilities, conducting penetration
                             testing, and leading incident response efforts.</p>
                         <div class="job-qualify mt-5">
-                            <div class="btn text-[#10B981] border-[#10B981]">INTERVIEW</div>
-                            <div class="btn text-[#EF4444] border-[#EF4444]">REJECTED</div>
+                            <div class="btn btn-interview text-[#10B981] border-[#10B981]">INTERVIEW</div>
+                            <div class="btn btn-rejected text-[#EF4444] border-[#EF4444]">REJECTED</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div id="interview-initial-state" class="hidden text-center mb-10 space-y-5 py-36 w-11/12 mx-auto bg-white rounded-lg ">
+            <img class="mx-auto block" src="./jobs.png" alt="">
+            <h2 class="text-[#002C5C] font-semibold text-2xl">No jobs available</h2>
+            <p class="text-gray-500">Check back soon for new job opportunities</p>
+        </div>
+        <div id="interview-jobs-area" class="interview-jobs hidden space-y-5">
+
+        </div>
+
+        <div id="rejected-initial-state" class=" hidden rejected-initial-state text-center mb-10 space-y-5 py-36 w-11/12 mx-auto bg-white rounded-lg">
+            <img class="mx-auto block" src="./jobs.png" alt="">
+            <h2 class="text-[#002C5C] font-semibold text-2xl">No jobs available</h2>
+            <p class="text-gray-500">Check back soon for new job opportunities</p>
+        </div>
+
+        <div id="rejected-jobs-area" class="rejected-jobs space-y-5 hidden">
+
+            <!-- <div id="add-new-rejected" class="hidden">
+
+            </div> -->
+        </div>
+
+
     </section>
 
-    <script src="script/script.js"></script>
+    <script src="./script/script.js"></script>
 </body>
 
 </html>
