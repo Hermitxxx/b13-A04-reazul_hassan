@@ -119,6 +119,7 @@ const jobsArea = document.getElementById("available-jobs-area");
 
 jobsArea.addEventListener("click", function (event) {
     // get all sections
+    const availableLastState = document.getElementById("available-empty-state");
     const availableJobsArea = document.getElementById("available-jobs-cards");
     const interviewSection = document.getElementById("interview-jobs-area");
     const rejectedSection = document.getElementById("rejected-jobs-area");
@@ -144,16 +145,15 @@ jobsArea.addEventListener("click", function (event) {
     }
     // Handle REJECTED button clicks on job cards
     else if (target.classList.contains("btn-rejected")) {
-        updateRejectedCount();
         const cardBody = target.closest(".card-body");
         const jobStatus = cardBody.querySelector(".job-status .btn");
         // updateTotalCount();
         updateStatusRejected(jobStatus);
         renderRejected(cardBody);
+        updateRejectedCount(rejectedSection);
         // const card = cardBody.closest('.available-card');
         // card.remove();
-        // smallSpanCountAll(availableJobsArea);
-        // getInitialCount(availableJobsArea);
+
     }
     // handle INTERVIEW TOOGLE click
     else if (target.classList.contains("interview")) {
@@ -161,6 +161,7 @@ jobsArea.addEventListener("click", function (event) {
         updateToggleColor(target);
         smallSpanCountInterview(interviewSection);
         // smallSpanCount(cardBody);
+        availableLastState.classList.add("hidden");
         availableJobsArea.classList.add("hidden");
         rejectedSection.classList.add("hidden");
         rejectedInitial.classList.add("hidden")
@@ -177,6 +178,7 @@ jobsArea.addEventListener("click", function (event) {
         smallSpanCountRejected(rejectedSection);
         updateAreaTitle(target);
         updateToggleColor(target);
+        availableLastState.classList.add("hidden");
         interviewSection.classList.add("hidden");
         interviewInitial.classList.add("hidden");
         availableJobsArea.classList.add("hidden");
@@ -192,6 +194,7 @@ jobsArea.addEventListener("click", function (event) {
     }
     else if (target.classList.contains("all")) {
         updateAreaTitle(target);
+        availableLastState.classList.add("hidden");
         availableJobsArea.classList.remove("hidden");
         interviewSection.classList.add("hidden");
         rejectedSection.classList.add("hidden");
@@ -199,19 +202,80 @@ jobsArea.addEventListener("click", function (event) {
         interviewInitial.classList.add("hidden");
         updateToggleColor(target);
         smallSpanCountAll(availableJobsArea);
+        if (availableJobsArea.childElementCount === 0) {
+            availableLastState.classList.remove("hidden");
+        }
         // console.log(availableJobsArea.childElementCount);
+    }
+
+    // capture clicks on available-jobs-cards delete btn
+    else if (target.classList.contains("delete")) {
+        const cardBody = target.closest(".card-body");
+        const availableLastState = document.getElementById("available-empty-state");
+        // availableLastState.classList.remove("hidden");
+        // if the same card is in interview or rejected area
+
+        const cardHead = cardBody.querySelector(".card-title");
+        // console.log(cardHead.innerText);
+        // console.log(interviewSection.children);
+        const arrInt = Array.from(interviewSection.children);
+        const arrRej = Array.from(rejectedSection.children);
+        console.log(arrInt.length);
+        // console.log(arr);
+        // arrInt.forEach((item) => {
+        //     console.log(item.querySelector(".card-title").innerText);
+        // })
+
+        if (interviewSection.childElementCount === 0 && rejectedSection.childElementCount === 0) {
+            const card = cardBody.closest('.available-card');
+            card.remove();
+            smallSpanCountAll(availableJobsArea);
+            getInitialCount(availableJobsArea);
+        }
+        else {
+            // Check interview section
+            if (arrInt.length !== 0) {
+                for (let item of arrInt) {
+                    if (item.querySelector(".card-title").innerText === cardHead.innerText) {
+                        item.remove();
+                        updateInterViewCount(interviewSection);
+                        break;
+                    }
+                }
+            }
+            // Check rejected section
+            if (arrRej.length !== 0) {
+                for (let item of arrRej) {
+                    if (item.querySelector(".card-title").innerText === cardHead.innerText) {
+                        item.remove();
+                        updateRejectedCount(rejectedSection);
+                        break;
+                    }
+                }
+            }
+            // Remove from available section
+            const card = cardBody.closest('.available-card');
+            card.remove();
+            smallSpanCountAll(availableJobsArea);
+            getInitialCount(availableJobsArea);
+        }
+
+        // show no jobs if all jobs are deleted
+        if (availableJobsArea.childElementCount === 0) {
+            availableLastState.classList.remove("hidden");
+        }
     }
 
 });
 
 // CARD TRANSFER TOGGLE FUNTIONALITY HERE
-const interviewArea = document.getElementById("interview-jobs-area");
 const availableJobsArea = document.getElementById("available-jobs-cards");
 const interviewSection = document.getElementById("interview-jobs-area");
 const rejectedSection = document.getElementById("rejected-jobs-area");
 const interviewInitial = document.getElementById("interview-initial-state");
 const rejectedInitial = document.getElementById("rejected-initial-state");
 
+const interviewArea = document.getElementById("interview-jobs-area");
 interviewArea.addEventListener("click", function (event) {
     target = event.target;
     // console.log(target);
@@ -221,16 +285,59 @@ interviewArea.addEventListener("click", function (event) {
         // console.log(jobStatus);
         updateStatusRejected(jobStatus);
         renderRejected(cardBody);
+        // Remove the card first
+        const card = cardBody.closest('.card');
+        card.remove();
+        // Then check if the section is empty
         if (interviewSection.childElementCount === 0) {
             interviewInitial.classList.remove("hidden");
         }
-        else {
-            const card = cardBody.closest('.card');
-            card.remove();
-        }
         smallSpanCountInterview(interviewSection);
-        // smallSpanCountRejected(rejectedSection);
         updateInterViewCount(interviewSection);
         updateRejectedCount(rejectedSection);
+    }
+    else if (target.classList.contains("delete")) {
+        const cardBody = target.closest(".card");
+        const card = cardBody.closest(".card");
+        card.remove();
+        updateInterViewCount(interviewSection);
+        smallSpanCountInterview(interviewSection);
+        if (interviewSection.childElementCount === 0) {
+            interviewInitial.classList.remove("hidden");
+        }
+    }
+})
+
+
+const rejectedArea = document.getElementById("rejected-jobs-area");
+rejectedArea.addEventListener("click", function (event) {
+    target = event.target;
+    // console.log(target);
+    if (target.classList.contains("btn-interview")) {
+        const cardBody = target.closest(".card");
+        const jobStatus = cardBody.querySelector(".job-status .btn");
+        // console.log(jobStatus);
+        updateStatusInterview(jobStatus);
+        renderInterView(cardBody);
+        // Remove the card first
+        const card = cardBody.closest('.card');
+        card.remove();
+        // Then check if the section is empty
+        if (rejectedSection.childElementCount === 0) {
+            rejectedInitial.classList.remove("hidden");
+        }
+        smallSpanCountRejected(rejectedSection);
+        updateInterViewCount(interviewSection);
+        updateRejectedCount(rejectedSection);
+    }
+    else if (target.classList.contains("delete")) {
+        const cardBody = target.closest(".card");
+        const card = cardBody.closest(".card");
+        card.remove();
+        updateRejectedCount(rejectedSection);
+        smallSpanCountRejected(rejectedSection);
+        if (rejectedSection.childElementCount === 0) {
+            rejectedInitial.classList.remove("hidden");
+        }
     }
 })
