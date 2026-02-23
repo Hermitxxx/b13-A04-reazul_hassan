@@ -71,6 +71,16 @@ function updateStatusRejected(jobStatus) {
 }
 
 function renderInterView(cardBody) {
+    const arrInt = Array.from(interviewSection.children);
+    const cardHead = cardBody.querySelector(".card-title");
+    for (let item of arrInt) {
+        if (item.querySelector(".card-title").innerText === cardHead.innerText) {
+            return;
+        }
+        else if (interviewSection.childElementCount !== 0) {
+            break;
+        }
+    };
     interviewCont.push(cardBody);
     const newInterViewArea = document.getElementById("interview-jobs-area");
     const newCard = document.createElement("div");
@@ -78,15 +88,28 @@ function renderInterView(cardBody) {
     newCard.innerHTML = cardBody.innerHTML;
     newInterViewArea.appendChild(newCard);
     // console.log(interviewCont.length);
+
 }
 
 function renderRejected(cardBody) {
+    // console.log(rejectedSection);
+    const arrRej = Array.from(rejectedSection.children);
+    const cardHead = cardBody.querySelector(".card-title");
+    for (let item of arrRej) {
+        if (item.querySelector(".card-title").innerText === cardHead.innerText) {
+            return;
+        }
+        else if (rejectedSection.childElementCount !== 0) {
+            break;
+        }
+    };
     rejectedCont.push(cardBody);
     const newRejectedArea = document.getElementById("rejected-jobs-area");
     const newCard = document.createElement("div");
     newCard.classList.add("card", "card-lg", "shadow-md", "bg-base-100", "p-10");
     newCard.innerHTML = cardBody.innerHTML;
     newRejectedArea.appendChild(newCard);
+
     // console.log(rejectedCont.length);
 }
 
